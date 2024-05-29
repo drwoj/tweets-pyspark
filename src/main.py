@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession, DataFrame
 from src.loaders.TweetsLoader import TweetsLoader
 from src.cleaners.TweetsCleaner import TweetsCleaner as Cleaner
 from src.analysers.TweetsAnalyser import TweetsAnalyser as Analyser
+from src.analysers.TweetsSearch import TweetsSearch as Search
 
 if __name__ == '__main__':
     spark = (SparkSession.builder
@@ -25,3 +26,28 @@ if __name__ == '__main__':
 
     avg_user_followers_per_location: DataFrame = Analyser.get_avg_user_followers_per_location(tweets)
     avg_user_followers_per_location.show()
+
+    search: str = 'Adele'
+    search_tweets: DataFrame = Search.search_by_keyword(tweets, search)
+    print(search_tweets.count())
+    search_tweets.show()
+
+    search_keywords: list[str] = ['Adele', 'Grammys']
+    search_tweets: DataFrame = Search.search_by_keywords(tweets, search_keywords)
+    print(search_tweets.count())
+    search_tweets.show()
+
+    search_hashtags: list[str] = ['adele', 'Grammys']
+    search_tweets: DataFrame = Search.search_by_any_hashtag(tweets, search_hashtags)
+    print(search_tweets.count())
+    search_tweets.show()
+
+    search_hashtags: list[str] = ['Adele', 'grammys']
+    search_tweets: DataFrame = Search.search_by_all_hashtags(tweets, search_hashtags)
+    print(search_tweets.count())
+    search_tweets.show()
+
+    search_location: str = 'Poland'
+    search_tweets: DataFrame = Search.search_by_location(tweets, search_location)
+    print(search_tweets.count())
+    search_tweets.show()
