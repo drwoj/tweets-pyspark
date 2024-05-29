@@ -1,4 +1,4 @@
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession, DataFrame
 from src.loaders.TweetsLoader import TweetsLoader
 from src.cleaners.TweetsCleaner import TweetsCleaner as Cleaner
 
@@ -8,9 +8,9 @@ if __name__ == '__main__':
              .config("spark.sql.legacy.timeParserPolicy", "LEGACY")  # to parse dates from financial.csv
              .getOrCreate())
 
-    loader = TweetsLoader(spark)
+    loader: TweetsLoader = TweetsLoader(spark)
 
-    tweets = loader.load_tweets()
+    tweets: DataFrame = loader.load_tweets()
 
     tweets.printSchema()
     tweets.show(5, False)
