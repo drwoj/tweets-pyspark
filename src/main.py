@@ -51,3 +51,5 @@ if __name__ == '__main__':
     search_tweets: DataFrame = Search.search_by_location(tweets, search_location)
     print(search_tweets.count())
     search_tweets.show()
+
+    spark.stop()
