@@ -1,5 +1,5 @@
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import explode, desc, col, avg
+from pyspark.sql.functions import explode, desc, col, avg, lower
 from src.utils.columns import Columns
 
 
@@ -13,7 +13,10 @@ class TweetsAnalyser:
 
     @classmethod
     def get_retweets_stats(cls, tweets: DataFrame) -> DataFrame:
-        return tweets.groupBy(Columns.IS_RETWEET.value).count()
+        return tweets.filter(col(Columns.IS_RETWEET.value).isNotNull()) \
+                .groupBy(lower(col(Columns.IS_RETWEET.value)).alias(Columns.IS_RETWEET.value)) \
+                .count() \
+                .orderBy(desc('count'))
 
     @classmethod
     def get_source_stats(cls, tweets: DataFrame) -> DataFrame:

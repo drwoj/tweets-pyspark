@@ -13,7 +13,7 @@ tweet_schema = StructType([
     StructField("text", StringType(), True),
     StructField("hashtags", StringType(), True),
     StructField("source", StringType(), True),
-    StructField("is_retweet", BooleanType(), True)
+    StructField("is_retweet", StringType(), True)
 ])
 
 financial_tweet_schema = StructType([

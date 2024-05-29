@@ -13,9 +13,9 @@ class TweetsLoader:
     def load_tweets(self) -> DataFrame:
         covid_tweets: DataFrame = self.load_covid_tweets()
         grammy_tweets: DataFrame = self.load_grammy_tweets()
-        financial_tweets:DataFrame = (self.load_financial_tweets()
-                            .withColumnRenamed('timestamp', Columns.DATE.value)
-                            .withColumnRenamed('verified', Columns.USER_VERIFIED.value))
+        financial_tweets: DataFrame = (self.load_financial_tweets()
+                                       .withColumnRenamed('timestamp', Columns.DATE.value)
+                                       .withColumnRenamed('verified', Columns.USER_VERIFIED.value))
 
         return covid_tweets.unionByName(grammy_tweets, True).unionByName(financial_tweets, True)
 
