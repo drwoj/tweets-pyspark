@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession, DataFrame
 from src.loaders.TweetsLoader import TweetsLoader
 from src.cleaners.TweetsCleaner import TweetsCleaner as Cleaner
+from src.analysers.TweetsAnalyser import TweetsAnalyser as Analyser
 
 if __name__ == '__main__':
     spark = (SparkSession.builder
@@ -11,9 +12,8 @@ if __name__ == '__main__':
     loader: TweetsLoader = TweetsLoader(spark)
 
     tweets: DataFrame = loader.load_tweets()
-
-    tweets.printSchema()
-    tweets.show(5, False)
-
     tweets = Cleaner.clean_tweets(tweets)
-    tweets.show(5, False)
+    hashtags_stats: DataFrame = Analyser.get_hashtags_stats(tweets)
+
+    hashtags_stats.show()
+
