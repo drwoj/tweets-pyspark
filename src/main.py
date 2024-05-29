@@ -6,7 +6,7 @@ from src.analysers.TweetsSearch import TweetsSearch as Search
 
 if __name__ == '__main__':
     spark = (SparkSession.builder
-             .appName('TweetsLoader')
+             .appName('Twitter Posts Analysis')
              .config("spark.sql.legacy.timeParserPolicy", "LEGACY")  # to parse dates from financial.csv
              .getOrCreate())
 
