@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     loader: TweetsLoader = TweetsLoader(spark)
 
-    tweets: DataFrame = loader.load_tweets()
+    tweets: DataFrame = loader.load_tweets().cache()
     tweets = Cleaner.clean_tweets(tweets)
 
     hashtags_stats: DataFrame = Analyser.get_hashtags_stats(tweets)
