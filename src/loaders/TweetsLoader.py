@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import to_timestamp, col
-from src.schemas.schemas import tweet_schema, financial_tweet_schema
+from src.utils.schemas import tweet_schema, financial_tweet_schema
+from src.utils.columns import Columns
 import os
 
 
@@ -13,8 +14,8 @@ class TweetsLoader:
         covid_tweets = self.load_covid_tweets()
         grammy_tweets = self.load_grammy_tweets()
         financial_tweets = (self.load_financial_tweets()
-                            .withColumnRenamed('timestamp', 'date')
-                            .withColumnRenamed('verified', 'user_verified'))
+                            .withColumnRenamed('timestamp', Columns.DATE.value)
+                            .withColumnRenamed('verified', Columns.USER_VERIFIED.value))
 
         return covid_tweets.unionByName(grammy_tweets, True).unionByName(financial_tweets, True)
 
