@@ -1,0 +1,22 @@
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+
+# Python specific files
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Virtual environment files
+venv/
+
+# Other common files
+.DS_Store
+*.log
+*.csv
+*.json
+*.xml
+
+
+
