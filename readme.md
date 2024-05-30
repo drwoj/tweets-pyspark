@@ -45,3 +45,6 @@ docker-compose down
 ## Accessing the Application
 
 You will be able to access it through a Spark WEB UI. The port (9090) specified in `docker-compose.yml` will be exposed on your host machine, so you can access S[park Master by navigating to `localhost:9090` in your web browser.
+
+### Spark Web UI view
+![img](https://github.com/drwoj/tweets-pyspark/assets/84898707/bc863b4f-b860-4aa0-85e3-641861c4d7e8)
