@@ -6,7 +6,7 @@ from src.utils.columns import Columns
 class TweetsAnalyser:
     @classmethod
     def get_hashtags_stats(cls, tweets: DataFrame) -> DataFrame:
-        return tweets.select(explode(Columns.HASHTAGS.value).alias(Columns.HASHTAGS.value)) \
+        return tweets.withColumn(Columns.HASHTAGS.value, explode(Columns.HASHTAGS.value)) \
             .groupBy(Columns.HASHTAGS.value) \
             .count() \
             .orderBy(desc('count'))
@@ -24,8 +24,7 @@ class TweetsAnalyser:
 
     @classmethod
     def get_avg_user_followers_per_location(cls, tweets: DataFrame) -> DataFrame:
-        return tweets.select(Columns.USER_FOLLOWERS.value, Columns.USER_LOCATION.value, Columns.USER_NAME.value) \
-            .filter(col(Columns.USER_LOCATION.value).isNotNull()) \
+        return tweets.filter(col(Columns.USER_LOCATION.value).isNotNull()) \
             .filter(col(Columns.USER_NAME.value).isNotNull()) \
             .dropDuplicates([Columns.USER_NAME.value]) \
             .groupBy(Columns.USER_LOCATION.value) \

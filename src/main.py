@@ -37,18 +37,16 @@ if __name__ == '__main__':
     print(search_tweets.count())
     search_tweets.show()
 
-    search_hashtags: list[str] = ['adele', 'Grammys']
+    search_hashtags: list[str] = ['Football','Messi']
     search_tweets: DataFrame = Search.search_by_any_hashtag(tweets, search_hashtags)
     print(search_tweets.count())
     search_tweets.show()
 
-    search_hashtags: list[str] = ['Adele', 'grammys']
-    search_tweets: DataFrame = Search.search_by_all_hashtags(tweets, search_hashtags)
-    print(search_tweets.count())
-    search_tweets.show()
+    search_hashtags: list[str] = ['breaking', 'grammys', 'award', 'grammy']
+    search_location: str = 'London'
+    search_tweets: DataFrame = tweets.transform(Search.search_by_any_hashtag, search_hashtags) \
+        .transform(Search.search_by_location, search_location)
 
-    search_location: str = 'Poland'
-    search_tweets: DataFrame = Search.search_by_location(tweets, search_location)
     print(search_tweets.count())
     search_tweets.show()
 
